@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>소셜 로그인</title>
+  <style>
+    .btn {
+      border-radius: 6px;
+      width: 204px;
+      height: 49px;
+      color: #000;
+      font-size: 15px;
+      line-height: 49px;
+      margin-top: 36px;
+      letter-spacing: -0.16px;
+    }
+    .kakao {
+      background: #FFCD00;
+    }
+    .naver {
+      background: #03C75A;
+    }
+    .apple {
+      background: #000000;
+      color:white;
+    }
+  </style>
+  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+</head>
+<body>
+<div>
+  <button type="button" class="btn kakao" onclick="kakaoLogin();">
+    카카오 로그인
+  </button>
+  <button type="button" class="btn naver">
+    네이버 로그인
+  </button>
+  <button type="button" class="btn apple">
+    애플 로그인
+  </button>
+</div>
+
+<script type="text/javascript">
+  var sdkStateRedirectUri = location.protocol + "//" + location.hostname;
+  if (location.port != "") {
+    sdkStateRedirectUri = sdkStateRedirectUri + ":" + location.port;
+  }
+  sdkStateRedirectUri = sdkStateRedirectUri + "/login/token";
+
+  function kakaoLogin() {
+    try{
+      Kakao.init(commonReqInfo.appKey);
+
+      Kakao.Auth.authorize({
+        reauthenticate: true,
+        state: "kakao",
+        redirectUri: ""
+      });
+    }catch(e) {
+      console.log(e);
+    }
+  }
+</script>
+</body>
+</html>
