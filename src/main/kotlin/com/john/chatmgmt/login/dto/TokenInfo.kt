@@ -1,9 +1,8 @@
-package com.john.chatmgmt.api.login.dto
+package com.john.chatmgmt.login.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class LoginResult(
-    var state: String?,
+data class TokenInfo(
     @JsonProperty("access_token")
     var accessToken: String?,
     @JsonProperty("expires_in")

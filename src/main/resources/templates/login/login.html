@@ -40,26 +40,30 @@
   </button>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
+  //<![CDATA[
   var sdkStateRedirectUri = location.protocol + "//" + location.hostname;
   if (location.port != "") {
     sdkStateRedirectUri = sdkStateRedirectUri + ":" + location.port;
   }
   sdkStateRedirectUri = sdkStateRedirectUri + "/login/token";
 
+  var kakaoKey = /*[[${kakaoJsKey}]]*/ "";
+
   function kakaoLogin() {
     try{
-      Kakao.init(commonReqInfo.appKey);
+      Kakao.init(kakaoKey);
 
       Kakao.Auth.authorize({
         reauthenticate: true,
         state: "kakao",
-        redirectUri: ""
+        redirectUri: sdkStateRedirectUri
       });
     }catch(e) {
       console.log(e);
     }
   }
+  //]]>
 </script>
 </body>
 </html>
