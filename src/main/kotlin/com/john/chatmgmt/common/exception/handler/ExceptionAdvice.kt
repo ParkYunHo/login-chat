@@ -1,6 +1,7 @@
 package com.john.chatmgmt.common.exception.handler
 
 import com.john.chatmgmt.common.dto.BaseResponse
+import com.john.chatmgmt.common.exception.KakaoServerException
 import com.john.chatmgmt.common.exception.TokenInvalidException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -18,5 +19,12 @@ class ExceptionAdvice {
     fun tokenInvalidException(e: TokenInvalidException): BaseResponse{
         logger.error(e.message, e)
         return BaseResponse(e.message, HttpStatus.UNAUTHORIZED)
+    }
+
+    @ExceptionHandler(KakaoServerException::class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    fun tokenInvalidException(e: KakaoServerException): BaseResponse{
+        logger.error(e.message, e)
+        return BaseResponse(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 }
