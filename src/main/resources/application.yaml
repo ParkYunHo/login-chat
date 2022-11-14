@@ -14,5 +14,5 @@ login:
       secrets: gwtd7Py9puRoHt6fXJAGaG8GJCJcNj6H
     - type: naver
       restKey: 7rZMvLkTIXowUlkv7h_y
-      jsKey:
+      jsKey: 7rZMvLkTIXowUlkv7h_y
       secrets: lt5UnpY0Uq

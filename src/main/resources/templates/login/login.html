@@ -25,14 +25,17 @@
       color:white;
     }
   </style>
+  <!-- 카카오js -->
   <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <!-- 네이버js -->
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 </head>
 <body>
 <div>
   <button type="button" class="btn kakao" onclick="kakaoLogin();">
     카카오 로그인
   </button>
-  <button type="button" class="btn naver">
+  <button type="button" class="btn naver" onclick="naverLogin();">
     네이버 로그인
   </button>
   <button type="button" class="btn apple">
@@ -48,11 +51,15 @@
   }
   sdkStateRedirectUri = sdkStateRedirectUri + "/login/token";
 
-  var kakaoKey = /*[[${kakaoJsKey}]]*/ "";
+  var appKey = {
+    kakao: /*[[${kakaoJsKey}]]*/ "",
+    naver: /*[[${naverJsKey}]]*/ ""
+  }
 
+  // 카카오로그인
   function kakaoLogin() {
     try{
-      Kakao.init(kakaoKey);
+      Kakao.init(appKey.kakao);
 
       Kakao.Auth.authorize({
         reauthenticate: true,
@@ -63,6 +70,21 @@
       console.log(e);
     }
   }
+
+  // 네이버로그인
+  function naverLogin() {
+    try{
+      var apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+      apiURL += "&client_id=" + appKey.naver;
+      apiURL += "&redirect_uri=" + sdkStateRedirectUri;
+      apiURL += "&state=" + "naver";
+
+      location.href = apiURL;
+    }catch (e){
+      console.log(e)
+    }
+  }
+
   //]]>
 </script>
 </body>

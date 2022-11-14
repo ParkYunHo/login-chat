@@ -1,5 +1,6 @@
 package com.john.chatmgmt.login
 
+import com.john.chatmgmt.common.constants.CommCode
 import com.john.chatmgmt.common.exception.KakaoServerException
 import com.john.chatmgmt.common.exception.TokenInvalidException
 import com.john.chatmgmt.common.utils.AppPropsUtils
@@ -35,8 +36,8 @@ class LoginService (
             val params: MultiValueMap<String, String> = LinkedMultiValueMap()
             params.add("grant_type", "authorization_code")
             params.add("client_id", appconfig?.get("clientId"))
-            params.add("code", code)
             params.add("client_secret", appconfig?.get("clientSecret"))
+            params.add("code", code)
 
             val uriComponents = UriComponentsBuilder
                 .fromHttpUrl(AppPropsUtils.findUrl("kauth") + "/oauth/token")
@@ -53,6 +54,39 @@ class LoginService (
                 .toEntity(TokenInfo::class.java)
                 .block()
             logger.info(" >>> [kakaoToken] response - statusCode: {}, body: {}", responseEntity?.statusCodeValue, responseEntity?.body)
+
+            return responseEntity?.body
+        }catch(e: Throwable){
+            throw e
+        }
+    }
+
+    fun naverToken(code: String?, type: String): TokenInfo? {
+        try{
+            var appconfig = AppPropsUtils.findClientInfoByType(type)
+
+            val params: MultiValueMap<String, String> = LinkedMultiValueMap()
+            params.add("grant_type", "authorization_code")
+            params.add("client_id", appconfig?.get("clientId"))
+            params.add("client_secret", appconfig?.get("clientSecret"))
+            params.add("code", code)
+            params.add("state", CommCode.Social.NAVER.code)
+
+            val uriComponents = UriComponentsBuilder
+                .fromHttpUrl(AppPropsUtils.findUrl("nauth") + "/oauth2.0/token")
+                .queryParams(params)
+                .build(false)
+
+            logger.info(" >>> [naverToken] request - url: {}", uriComponents.toString())
+            var responseEntity = webClient.get()
+                .uri(uriComponents.toUri())
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .onStatus(HttpStatus::is4xxClientError) { Mono.error(TokenInvalidException("naver token invalid")) }
+                .onStatus(HttpStatus::is5xxServerError) { Mono.error(KakaoServerException("nauth internal server error")) }
+                .toEntity(TokenInfo::class.java)
+                .block()
+            logger.info(" >>> [naverToken] response - statusCode: {}, body: {}", responseEntity?.statusCodeValue, responseEntity?.body)
 
             return responseEntity?.body
         }catch(e: Throwable){
