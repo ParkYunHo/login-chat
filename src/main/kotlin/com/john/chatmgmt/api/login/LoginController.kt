@@ -21,6 +21,7 @@ class LoginController(
     fun login(): ModelAndView {
         var mv = ModelAndView("login/login")
         mv.addObject("kakaoJsKey", AppPropsUtils.findJsKeyByType(CommCode.Social.KAKAO.code))
+        mv.addObject("naverJsKey", AppPropsUtils.findJsKeyByType(CommCode.Social.NAVER.code))
 
         return mv
     }
@@ -32,7 +33,7 @@ class LoginController(
         var tokenInfo: Any? = null
         when(socialName) {
             CommCode.Social.KAKAO.code -> tokenInfo = loginService.kakaoToken(input.code, socialName)
-            CommCode.Social.NAVER.code -> logger.info(" >>> [token] naver login")
+            CommCode.Social.NAVER.code -> tokenInfo = loginService.naverToken(input.code, socialName)
             CommCode.Social.APPLE.code -> logger.info(" >>> [token] apple login")
         }
 

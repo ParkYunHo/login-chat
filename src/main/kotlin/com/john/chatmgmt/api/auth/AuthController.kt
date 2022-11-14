@@ -19,7 +19,7 @@ class AuthController(
         var tokenInfo: Any? = null
         when(input.type) {
             CommCode.Social.KAKAO.code -> tokenInfo = authService.kakaoAuth(input.accessToken)
-            CommCode.Social.NAVER.code -> logger.info(" >>> [token] naver login")
+            CommCode.Social.NAVER.code -> tokenInfo = authService.naverAuth(input.accessToken)
             CommCode.Social.APPLE.code -> logger.info(" >>> [token] apple login")
         }
 
