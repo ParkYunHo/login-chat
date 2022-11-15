@@ -1,6 +1,7 @@
 package com.john.chatmgmt.common.exception.handler
 
 import com.john.chatmgmt.common.dto.BaseResponse
+import com.john.chatmgmt.common.exception.BadRequestException
 import com.john.chatmgmt.common.exception.KakaoServerException
 import com.john.chatmgmt.common.exception.TokenInvalidException
 import org.slf4j.LoggerFactory
@@ -23,8 +24,15 @@ class ExceptionAdvice {
 
     @ExceptionHandler(KakaoServerException::class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    fun tokenInvalidException(e: KakaoServerException): BaseResponse{
+    fun kakaoServerException(e: KakaoServerException): BaseResponse{
         logger.error(e.message, e)
         return BaseResponse(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
+    @ExceptionHandler(BadRequestException::class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    fun badRequestException(e: BadRequestException): BaseResponse{
+        logger.error(e.message, e)
+        return BaseResponse(e.message, HttpStatus.BAD_REQUEST)
     }
 }
