@@ -1,5 +1,9 @@
 package com.john.chatmgmt.auth.dto
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 data class NaverTokenInfo (
     val resultcode: String?,
     val message: String?,

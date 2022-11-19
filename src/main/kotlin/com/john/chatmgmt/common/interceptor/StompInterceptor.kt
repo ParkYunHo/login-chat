@@ -10,6 +10,10 @@ import org.springframework.messaging.support.ChannelInterceptor
 import org.springframework.stereotype.Component
 import java.util.*
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 @Component
 class StompInterceptor(
     private val chatRepository: ChatRepository

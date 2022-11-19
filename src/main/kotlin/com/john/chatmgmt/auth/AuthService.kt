@@ -1,7 +1,9 @@
 package com.john.chatmgmt.auth
 
+import com.john.chatmgmt.api.login.dto.LoginInput
 import com.john.chatmgmt.auth.dto.KakaoTokenInfo
 import com.john.chatmgmt.auth.dto.NaverTokenInfo
+import com.john.chatmgmt.common.dto.BaseResponse
 import com.john.chatmgmt.common.exception.KakaoServerException
 import com.john.chatmgmt.common.exception.TokenInvalidException
 import com.john.chatmgmt.common.utils.AppPropsUtils
@@ -16,6 +18,10 @@ import org.springframework.web.util.UriComponentsBuilder
 import reactor.core.publisher.Mono
 import javax.annotation.PostConstruct
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 @Service
 class AuthService(
     private val webClientBuilder: WebClient.Builder
@@ -29,6 +35,14 @@ class AuthService(
         this.webClient = webClientBuilder.build()
     }
 
+    /**
+     * 카카오 토큰조회
+     *
+     * @param accessToken [String]
+     * @return KakaoTokenInfo [KakaoTokenInfo]
+     * @author yoonho
+     * @since 2022.11.19
+     */
     fun kakaoAuth(accessToken: String?): KakaoTokenInfo? {
         try{
             val uriComponents = UriComponentsBuilder
@@ -53,6 +67,14 @@ class AuthService(
         }
     }
 
+    /**
+     * 네이버 토큰조회
+     *
+     * @param accessToken [String]
+     * @return NaverTokenInfo [NaverTokenInfo]
+     * @author yoonho
+     * @since 2022.11.19
+     */
     fun naverAuth(accessToken: String?): NaverTokenInfo? {
         try{
             val uriComponents = UriComponentsBuilder

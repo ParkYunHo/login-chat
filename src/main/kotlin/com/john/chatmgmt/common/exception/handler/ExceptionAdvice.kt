@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 @RestControllerAdvice
 class ExceptionAdvice {
 

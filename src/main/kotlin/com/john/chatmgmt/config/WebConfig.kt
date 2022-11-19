@@ -5,6 +5,10 @@ import org.springframework.http.HttpMethod
 import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 @Configuration
 class WebConfig: WebMvcConfigurer {
 

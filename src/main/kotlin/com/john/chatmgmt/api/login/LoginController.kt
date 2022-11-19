@@ -11,12 +11,23 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.ModelAndView
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 @RestController
 class LoginController(
     private val loginService: LoginService
 ) {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
+    /**
+     * 로그인 페이지(HTML) 호출
+     *
+     * @return mv [ModelAndView]
+     * @author yoonho
+     * @since 2022.11.19
+     */
     @GetMapping("/login")
     fun login(): ModelAndView {
         var mv = ModelAndView("login/login")
@@ -26,6 +37,14 @@ class LoginController(
         return mv
     }
 
+    /**
+     * 인가코드를 통한 토큰 획득
+     *
+     * @param input [LoginInput]
+     * @return BaseResponse [BaseResponse]
+     * @author yoonho
+     * @since 2022.11.19
+     */
     @GetMapping("/login/token")
     fun token(input: LoginInput): BaseResponse {
         var socialName = input.state

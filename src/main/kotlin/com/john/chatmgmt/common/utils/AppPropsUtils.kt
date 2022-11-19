@@ -3,6 +3,10 @@ package com.john.chatmgmt.common.utils
 import com.john.chatmgmt.common.constants.AppProps
 import org.slf4j.LoggerFactory
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 object AppPropsUtils {
     private val logger = LoggerFactory.getLogger(this::class.java)
 

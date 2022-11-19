@@ -2,6 +2,10 @@ package com.john.chatmgmt.login.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 data class TokenInfo(
     @JsonProperty("access_token")
     var accessToken: String?,

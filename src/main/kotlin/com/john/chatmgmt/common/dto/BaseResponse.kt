@@ -2,6 +2,10 @@ package com.john.chatmgmt.common.dto
 
 import org.springframework.http.HttpStatus
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 class BaseResponse (
     val message: String?,
     val status: HttpStatus,

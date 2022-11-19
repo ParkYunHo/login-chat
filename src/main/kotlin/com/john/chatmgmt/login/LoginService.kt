@@ -16,6 +16,10 @@ import org.springframework.web.util.UriComponentsBuilder
 import reactor.core.publisher.Mono
 import javax.annotation.PostConstruct
 
+/**
+ * @author yoonho
+ * @since 2022.11.19
+ */
 @Service
 class LoginService (
     private val webClientBuilder: WebClient.Builder
@@ -29,6 +33,15 @@ class LoginService (
         this.webClient = webClientBuilder.build()
     }
 
+    /**
+     * 카카오 토큰조회
+     *
+     * @param code [String]
+     * @param type [String]
+     * @return TokenInfo [TokenInfo]
+     * @author yoonho
+     * @since 2022.11.19
+     */
     fun kakaoToken(code: String?, type: String): TokenInfo? {
         try{
             var appconfig = AppPropsUtils.findClientInfoByType(type)
@@ -61,6 +74,15 @@ class LoginService (
         }
     }
 
+    /**
+     * 네이버 토큰조회
+     *
+     * @param code [String]
+     * @param type [String]
+     * @return TokenInfo [TokenInfo]
+     * @author yoonho
+     * @since 2022.11.19
+     */
     fun naverToken(code: String?, type: String): TokenInfo? {
         try{
             var appconfig = AppPropsUtils.findClientInfoByType(type)
